@@ -1,7 +1,38 @@
+import { useAuthStore } from "@/store/auth-store";
 import { sidebarData } from "@/utils/constants";
-import { NavLink } from "react-router-dom";
+import { getLocaleStorage, removeLocaleStorage } from "@/utils/locale-storage";
+import { LogOut, User2Icon } from "lucide-react";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
+  const API = import.meta.env.VITE_API_URL;
+  const [isProfile, setIsProfile] = useState(false);
+  const token = getLocaleStorage("token");
+  const navigate = useNavigate();
+  const { setAuthLoader } = useAuthStore();
+  const logoutFun = async () => {
+    try {
+      setAuthLoader(true);
+      await fetch(API + "/admin/logout", {
+        method: "POST", // ✅ POST so‘rov
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({}), // 🔹 Agar API hech qanday body talab qilmasa, shunchaki bo‘sh obyekt yuborish mumkin
+      });
+
+      removeLocaleStorage("token");
+      navigate("/login");
+    } catch (err: any) {
+      console.error("Logout error:", err);
+      throw new Error(err);
+    } finally {
+      setAuthLoader(false);
+    }
+  };
+
   return (
     <aside className="w-[310px] border-r h-screen bg-primary p-4 flex flex-col">
       <h1 className="text-center font-bold text-[27px] italic mb-12">
@@ -21,13 +52,37 @@ export const Sidebar = () => {
           );
         })}
       </div>
-      <div className=" bg-secondary rounded-[8px] p-5 flex items-center gap-1 relative">
-        <span className="w-2 h-2 rounded-full bg-[#4DA6FF] absolute right-0 top-0"></span>
-        <div className="w-[29px] h-[29px] rounded-full bg-foreground"></div>
-        <div>
-          <h3 className="text-[15px] font-medium">Abrolov Ibrohim</h3>
-          <p className="text-[10px]">Admin</p>
+      <div
+        className={`bg-secondary rounded-[8px] p-5 relative transition-all ease-out duration-75 flex flex-col gap-4  ${
+          isProfile ? "max-h-[200px]" : "max-h-[100px]"
+        }`}
+      >
+        <div
+          className="flex items-center gap-1   cursor-pointer"
+          onClick={() => setIsProfile((c) => !c)}
+        >
+          <span className="w-2 h-2 rounded-full bg-[#4DA6FF] absolute right-0 top-0"></span>
+          <div className="w-[29px] h-[29px] rounded-full bg-foreground"></div>
+          <div>
+            <h3 className="text-[15px] font-medium">Abrolov Ibrohim</h3>
+            <p className="text-[10px]">Admin</p>
+          </div>
         </div>
+        {isProfile && (
+          <div>
+            <div className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all rounded-md hover:text-white">
+              <User2Icon size={18} />
+              <p className="text-[15px] font-medium">Profile</p>
+            </div>
+            <div
+              className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all rounded-md hover:text-white"
+              onClick={logoutFun}
+            >
+              <LogOut size={18} />
+              <p className="text-[15px] font-medium">Logout</p>
+            </div>
+          </div>
+        )}
       </div>
     </aside>
   );

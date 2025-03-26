@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 @import "tw-animate-css";
-
+@import "@mantine/tiptap/styles.css";
 @custom-variant dark (&:is(.dark *));
 
 :root {
   --radius: 0.625rem;
-  --background: #121212;
+  --background: #09090b;
   --foreground: #b0b0b0;
+  --secondary: #27272a;
+  --primary: #141417;
+  --muted: #18181b;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #292929;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: #3a3a3a;
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #444444;
+  --border: #3a3a3a;
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -121,4 +121,35 @@
 }
 .active {
   @apply bg-secondary text-[#4DA6FF] p-2;
+}
+
+.mantine-RichTextEditor-control[data-active="true"] {
+  background-color: #007bff !important;
+  color: white !important;
+  border-radius: 4px;
+}
+
+.mantine-RichTextEditor-control {
+  font-size: 18px !important;
+  padding: 10px !important;
+  width: 35px !important;
+  height: 35px !important;
+}
+
+.mantine-RichTextEditor-linkEditor {
+  position: absolute !important;
+  top: 100% !important;
+  left: -200px !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+  background-color: var(--primary) !important;
+  padding: 10px !important;
+  border-radius: 8px !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.mantine-Popover-dropdown {
+  position: absolute !important;
+  z-index: 100 !important;
+  transform: none !important;
 }

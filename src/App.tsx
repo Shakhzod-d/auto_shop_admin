@@ -1,20 +1,48 @@
 import { Route, Routes } from "react-router-dom";
 
-import { Dashboard } from "./pages/dashboard";
+
 import { Layout } from "./layout";
+
+import { routes } from "./utils/routes";
+import { Login } from "./pages/login";
+import { PrivateRoute } from "./private-route";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Dashboard />
-            </Layout>
-          }
-        />
+        {routes.map((item) => {
+          const Component = item.component;
+          return (
+            <Route
+              key={item.id}
+              path={item.path}
+              element={
+                <PrivateRoute>
+                  <Layout>
+                    <Component />
+                  </Layout>
+                </PrivateRoute>
+              }
+            >
+              {item.route.map((elm, i) => {
+                return (
+                  <Route
+                    path={elm.path}
+                    element={
+                      // <PrivateRoute>
+                      <elm.component />
+                      // </PrivateRoute>
+                    }
+                    key={i}
+                  />
+                );
+              })}
+            </Route>
+          );
+          // }
+        })}
+        <Route path={"/login"} element={<Login />} />
       </Routes>
     </>
   );
