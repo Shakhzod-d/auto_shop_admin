@@ -8,38 +8,87 @@ import { useNewsStore } from "@/store/news-store";
 import { NewsResType } from "@/types/news.type";
 import { getLocaleStorage, setLocaleStorage } from "@/utils/locale-storage";
 import { useQuery } from "@tanstack/react-query";
-import { Newspaper, Pen, Plus, Trash2 } from "lucide-react";
+import {
+  ChartColumnStacked,
+  CircleCheck,
+  FolderKanban,
+  Image,
+  LoaderCircleIcon,
+  Newspaper,
+  Pen,
+  Plus,
+  Power,
+  Trash2,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const columns = [
-  { key: "image", title: "Rasm" },
-  { key: "source", title: "Manba" },
-  { key: "category", title: "Kategoriya" },
-  { key: "status", title: "Status" },
-  { key: "actions", title: "Buttonlar" },
+  {
+    key: "image",
+    title: (
+      <>
+        Rasm
+        <Image />
+      </>
+    ),
+  },
+  {
+    key: "source",
+    title: (
+      <>
+        Manba
+        <FolderKanban />
+      </>
+    ),
+  },
+  {
+    key: "category",
+    title: (
+      <>
+        Kategoriya
+        <ChartColumnStacked />
+      </>
+    ),
+  },
+  {
+    key: "status",
+    title: (
+      <>
+        Status
+        <CircleCheck />
+      </>
+    ),
+  },
+  {
+    key: "actions",
+    title: (
+      <>
+        Buttonlar
+        <Power />
+      </>
+    ),
+  },
 ];
 
 const API = import.meta.env.VITE_API_URL;
 export const News = () => {
   const navigate = useNavigate();
-
   const pathname = useLocation();
   const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
   const { deleteAction, setDeleteAction } = useStore();
+
   const {
     data: news,
-    isPending: newsBarLoading,
+    isPending: isLoading,
     refetch,
   } = useQuery<NewsResType>({
     queryFn: () => fetchItemsServ(`${API}/news?page=${count}&page_size=10`),
-    queryKey: ["fetchItemsServAll", count],
+    queryKey: ["fetchNews", count],
     staleTime: 0,
   });
 
   useEffect(() => {
-    if (deleteAction.openModal == false && deleteAction.path == "") {
-      refetch();
-    }
+    refetch();
   }, [deleteAction]);
 
   const { setFormVariant, newsVariant, setNewsVariant } = useNewsStore();
@@ -107,16 +156,25 @@ export const News = () => {
             <Plus /> Yangilik Qo’shish
           </Button>
         </div>
-        <CustomTable columns={columns} data={tableData ?? []} />
-        <div className="flex justify-end">
-          <Pagination
-            totalPages={news?.total_pages ?? 0}
-            onPageChange={(page: number) => onChangePage(page)}
-            activePage={news?.current_page ?? Number(count)}
-          />
-        </div>
+        {isLoading ? (
+          <div className="h-[70vh]  flex justify-center items-center">
+            <LoaderCircleIcon className="animate-spin" size={60} />
+          </div>
+        ) : (
+          <>
+            <CustomTable columns={columns} data={tableData ?? []} isPhoto={true}/>
+            <div className="flex justify-end">
+              <Pagination
+                totalPages={news?.total_pages ?? 0}
+                onPageChange={(page: number) => onChangePage(page)}
+                activePage={news?.current_page ?? Number(count)}
+              />
+            </div>
+          </>
+        )}
       </div>
     ),
+
     form: <Outlet />,
   };
   return component[newsVariant];

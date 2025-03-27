@@ -15,9 +15,10 @@ import { SelectData } from "@/types";
 import { NewsForm, NewsFormRes } from "@/types/news.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PlusIcon from "@/assets/icons/plus.svg";
+import { errorToast } from "@/lib/toast";
 // import { useNewsStore } from "@/store/news-store";
 // import { fetchItemsServ } from "@/services/items-serv";
 // import { useQuery } from "@tanstack/react-query";
@@ -44,8 +45,6 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
   //   staleTime: 0,
   // });
 
-  useEffect(() => {}, []);
-
   const form = useForm({
     resolver: zodResolver(NewsFormSchema),
     defaultValues: {
@@ -59,6 +58,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
       source: "",
     },
   });
+
   // const { reset } = form;
   // useEffect(() => {
   //   reset({
@@ -94,6 +94,14 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     submit(result);
   }
 
+  const onError = (errors: any) => {
+    if (errors.title_uz || errors.title_ru || errors.title_en) {
+      errorToast("Sarlavha uchta tilda to‘ldirilishi kerak!");
+    }
+    if (errors.content_uz || errors.content_ru || errors.content_en) {
+      errorToast("Kontent uchta tilda to‘ldirilishi kerak!");
+    }
+  };
   return (
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
@@ -121,7 +129,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={(form.handleSubmit(onSubmit), onError)}
           className="w-full flex flex-col gap-6"
         >
           <div className="flex gap-10">

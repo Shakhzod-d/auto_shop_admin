@@ -1,4 +1,3 @@
-
 export type AuthType = "success" | "error" | "form";
 
 export type AuthData = {
@@ -14,4 +13,29 @@ export type SelectData = {
 export interface DeleteActionType {
   openModal: boolean;
   path: string;
+}
+
+export interface FileRes {
+  data: FileData[];
+  total_elements: number;
+  total_pages: number;
+  page_size: number;
+  current_page: number;
+  from: number;
+  to: number;
+  status_code: number;
+  message: string;
+}
+
+export interface FileData {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  file_name: string;
+  path: string;
+  size: number;
+  mime_type: string;
 }
