@@ -1,4 +1,4 @@
-import { FormType, newsVariant } from "@/types/news.type";
+import { FormType, FormVariant, newsVariant } from "@/types/news.type";
 import { create } from "zustand";
 
 type Store = {
@@ -6,9 +6,16 @@ type Store = {
   formType: FormType;
   setNewsVariant: (data: newsVariant) => void;
   setFormType: (data: FormType) => void;
+  formVariant: FormVariant;
+  setFormVariant: (data: FormVariant) => void;
 };
 export const useNewsStore = create<Store>()((set) => ({
+  formVariant: {
+    id: "",
+    role: "create",
+  },
   newsVariant: "table",
+
   formType: "news",
   setNewsVariant: (data: newsVariant) => {
     set(() => ({
@@ -17,5 +24,8 @@ export const useNewsStore = create<Store>()((set) => ({
   },
   setFormType: (data: FormType) => {
     set(() => ({ formType: data }));
+  },
+  setFormVariant: (data: FormVariant) => {
+    set(() => ({ formVariant: data }));
   },
 }));
