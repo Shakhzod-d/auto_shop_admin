@@ -61,7 +61,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
         <span className="flex items-center gap-2">
-          <p className="text-xl text-[#E9E9E9] font-bold">Yangilik Qo’shish</p>
+          <p className="text-xl text-[#E9E9E9] font-bold">{"Yangilik Qo’shish"}</p>
           <PlusIcon />
         </span>
         <div className="flex gap-4">
