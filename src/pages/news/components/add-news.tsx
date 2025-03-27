@@ -2,8 +2,10 @@ import { CategoryReqTypes, NewsFormRes } from "@/types/news.type";
 import { AddNewsForm } from "./form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { fetchItemsServ, postItemsServ } from "@/services/items-serv";
+import { useNavigate } from "react-router-dom";
 const API = import.meta.env.VITE_API_URL;
 export const AddNews = () => {
+  const navigate = useNavigate();
   // get Category
 
   const { data: categoryData } = useQuery<CategoryReqTypes>({
@@ -26,6 +28,9 @@ export const AddNews = () => {
   const { mutate: createNews, isPending: loading } = useMutation({
     mutationFn: (obj: NewsFormRes) => postItemsServ(`${API}/news`, obj),
     onSuccess: (data: any) => {
+      if (data.status_code < 400) {
+        navigate("/news");
+      }
       console.log(data);
     },
     onError: (err) => {
@@ -34,7 +39,6 @@ export const AddNews = () => {
   });
 
   function onSubmit(data: NewsFormRes) {
-    console.log({ data });
     createNews(data);
   }
 

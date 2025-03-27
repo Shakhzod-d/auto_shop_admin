@@ -18,6 +18,10 @@ import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PlusIcon from "@/assets/icons/plus.svg";
+import { errorToast } from "@/lib/toast";
+// import { useNewsStore } from "@/store/news-store";
+// import { fetchItemsServ } from "@/services/items-serv";
+// import { useQuery } from "@tanstack/react-query";
 const langBtn = [
   { id: 1, value: "uz", label: "Uzbek" },
   { id: 2, value: "en", label: "English" },
@@ -28,16 +32,49 @@ interface Props {
   selectData: SelectData[] | [];
   loading: boolean;
 }
+// const API = import.meta.env.VITE_API_URL;
 export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
   const [activeLang, setActiveLang] = useState("uz");
   const [image, setImage] = useState({ id: "", path: "" });
+  // const { formVariant } = useNewsStore();
+
+  // const { data: newsData } = useQuery<NewsOneRes>({
+  //   queryFn: () => fetchItemsServ(`${API}/news/one/${formVariant.id}`),
+  //   queryKey: ["newsOne"],
+  //   enabled: formVariant.role === "edit", // Faqat "edit" rejimida so‘rov yuboriladi
+  //   staleTime: 0,
+  // });
 
   const form = useForm({
     resolver: zodResolver(NewsFormSchema),
+    defaultValues: {
+      title_uz: "",
+      title_ru: "",
+      title_en: "",
+      content_en: "",
+      content_ru: "",
+      content_uz: "",
+      categoryId: "",
+      source: "",
+    },
   });
 
+  // const { reset } = form;
+  // useEffect(() => {
+  //   reset({
+  //     title_uz: newsData?.data.t || "",
+  //     title_ru: newsData?.data.title_ru || "",
+  //     title_en: newsData.title_en || "",
+  //     content_en: newsData.content_en || "",
+  //     content_ru: newsData.content_ru || "",
+  //     content_uz: newsData.content_uz || "",
+  //     categoryId: newsData.categoryId || "",
+  //     source: newsData.source || "",
+  //   });
+  // }, [newsData]);
+
   function onSubmit(data: NewsForm) {
-    const result = {
+    const result: NewsFormRes = {
       title_uz: data.title_uz,
       title_en: data.content_en,
       title_ru: data.title_ru,
@@ -57,6 +94,14 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     submit(result);
   }
 
+  const onError = (errors: any) => {
+    if (errors.title_uz || errors.title_ru || errors.title_en) {
+      errorToast("Sarlavha uchta tilda to‘ldirilishi kerak!");
+    }
+    if (errors.content_uz || errors.content_ru || errors.content_en) {
+      errorToast("Kontent uchta tilda to‘ldirilishi kerak!");
+    }
+  };
   return (
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
@@ -84,7 +129,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={(form.handleSubmit(onSubmit), onError)}
           className="w-full flex flex-col gap-6"
         >
           <div className="flex gap-10">
