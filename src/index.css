@@ -123,6 +123,21 @@
   @apply bg-secondary text-[#4DA6FF] p-2;
 }
 
+/* Chrome, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Edge va boshqa brauzerlar */
+* {
+  -ms-overflow-style: none;
+}
+
 .mantine-RichTextEditor-control[data-active="true"] {
   background-color: #007bff !important;
   color: white !important;

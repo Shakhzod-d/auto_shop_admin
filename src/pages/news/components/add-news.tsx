@@ -34,7 +34,6 @@ export const AddNews = () => {
   });
 
   function onSubmit(data: NewsFormRes) {
-    console.log({ data });
     createNews(data);
   }
 
