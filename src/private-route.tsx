@@ -1,22 +1,17 @@
 import { LoaderCircle } from "lucide-react";
-import { JSX, useEffect } from "react";
+import { JSX } from "react";
 import { useAuthStore } from "./store/auth-store";
 import { getLocaleStorage } from "./utils/locale-storage";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "./hooks/use-auth";
 
 export const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { authLoader } = useAuthStore();
-  const user = getLocaleStorage("token");
-  const navigate = useNavigate();
+  const id = getLocaleStorage("userId");
+  const { isLoading } = useAuth(id ?? "");
 
-  useEffect(() => {
-    if (!authLoader && !user) {
-      navigate("/login");
-    }
-  }, [authLoader, user]);
   return (
     <>
-      {authLoader ? (
+      {isLoading || authLoader ? (
         <div className="w-full h-screen flex justify-center items-center">
           <LoaderCircle className="animate-spin" color="#4DA6FF" size={60} />
         </div>

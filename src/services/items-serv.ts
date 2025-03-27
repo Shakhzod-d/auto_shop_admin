@@ -1,11 +1,13 @@
 import { getLocaleStorage } from "@/utils/locale-storage";
 
 export const fetchItemsServ = async <T>(url: string): Promise<T> => {
+  const token = getLocaleStorage("token");
   const res = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       lang: "uz",
+      Authorization: `Bearer ${token}`,
     },
   });
   const data: T = await res.json();
@@ -18,7 +20,6 @@ export const postItemsServ = async <TRequest, TResponse>(
 ): Promise<TResponse> => {
   // LocalStorage'dan token olish
   const token = getLocaleStorage("token");
-  console.log({ token });
 
   // Agar token bo'lsa, headersga qo'shamiz
   const authHeaders = token
