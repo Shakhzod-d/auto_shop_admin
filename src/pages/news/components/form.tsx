@@ -18,7 +18,6 @@ import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PlusIcon from "@/assets/icons/plus.svg";
-import { errorToast } from "@/lib/toast";
 
 const langBtn = [
   { id: 1, value: "uz", label: "Uzbek" },
@@ -92,14 +91,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     submit(result);
   }
 
-  const onError = (errors: any) => {
-    if (errors.title_uz || errors.title_ru || errors.title_en) {
-      errorToast("Sarlavha uchta tilda to‘ldirilishi kerak!");
-    }
-    if (errors.content_uz || errors.content_ru || errors.content_en) {
-      errorToast("Kontent uchta tilda to‘ldirilishi kerak!");
-    }
-  };
+
   return (
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
@@ -129,7 +121,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
 
       <Form {...form}>
         <form
-          onSubmit={(form.handleSubmit(onSubmit), onError)}
+          onSubmit={(form.handleSubmit(onSubmit))}
           className="w-full flex flex-col gap-6"
         >
           <div className="flex gap-10">
