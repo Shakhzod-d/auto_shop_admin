@@ -15,3 +15,12 @@ export const NewsFormSchema = z.object({
   categoryId: z.string().min(3, "Kategoriya tanlanmagan"),
   source: z.string().min(3, { message: "Manba kirilmagan" }),
 });
+
+export const AdsFormScheme = z.object({
+  type: z.string().min(2, "type tanlanmagan"),
+  description_uz: z.string().min(3, "tavsif kiritilmagan"),
+  description_en: z.string().min(3, "tavsif kiritilmagan"),
+  description_ru: z.string().min(3, "tavsif kiritilmagan"),
+  url: z.string().min(3, "url kiritilmagan"),
+
+});

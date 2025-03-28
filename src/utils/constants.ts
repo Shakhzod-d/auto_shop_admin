@@ -18,6 +18,6 @@ export const sidebarData = [
     icon: CodeFolder,
     path: "/file",
   },
-  { id: 7, label: "Reklamalar va Monetizatsiya", icon: Cursor, path: "/file" },
+  { id: 7, label: "Reklamalar va Monetizatsiya", icon: Cursor, path: "/ads" },
   { id: 8, label: "Web-sayt Sozlamalari", icon: Globe, path: "/file" },
 ];

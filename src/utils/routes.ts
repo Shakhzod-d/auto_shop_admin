@@ -1,3 +1,5 @@
+import { Ads } from "@/pages/ads/ads";
+import { AddAds } from "@/pages/ads/components/add-ads";
 import { Dashboard } from "@/pages/dashboard";
 import { News } from "@/pages/news";
 import { AddNews } from "@/pages/news/components/add-news";
@@ -18,5 +20,11 @@ export const routes = [
     path: "/users",
     component: Users,
     route: [],
+  },
+  {
+    id: 3,
+    path: "/ads",
+    component: Ads,
+    route: [{ id: 2, path: "/ads/add-ads", component: AddAds }],
   },
 ];
