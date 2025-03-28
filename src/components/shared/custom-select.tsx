@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SelectData } from "@/types";
+import { useEffect, useState } from "react";
 
 interface Props {
   value: string;
@@ -15,8 +16,17 @@ interface Props {
 }
 
 export function CustomSelect({ value, onChange, data }: Props) {
+  const [selectedValue, setSelectedValue] = useState(value || ""); // Fallback default
+
+  useEffect(() => {
+    if (value) setSelectedValue(value); // Agar API dan kelgan value bo‘lsa, o‘rnatsin
+  }, [value]);
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select
+      value={selectedValue}
+      onValueChange={onChange}
+      defaultValue={selectedValue}
+    >
       <SelectTrigger
         className="w-full border border-border  rounded-md  bg-secondary py-[25px] "
         style={{ height: "40px !important" }}

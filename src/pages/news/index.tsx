@@ -70,48 +70,55 @@ const columns = [
   },
 ];
 
+import { useQueryClient } from "@tanstack/react-query";
 const API = import.meta.env.VITE_API_URL;
 export const News = () => {
   const navigate = useNavigate();
   const pathname = useLocation();
   const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
-  const { deleteAction, setDeleteAction } = useStore();
+  const { setDeleteAction } = useStore();
 
-  const {
-    data: news,
-    isPending: isLoading,
-    refetch,
-  } = useQuery<NewsResType>({
+  const { data: news, isPending: isLoading } = useQuery<NewsResType>({
     queryFn: () => fetchItemsServ(`${API}/news?page=${count}&page_size=10`),
-    queryKey: ["fetchNews", count],
+    queryKey: ["fetchNewsData", count],
     staleTime: 0,
   });
 
-  useEffect(() => {
-    refetch();
-  }, [deleteAction]);
+  const queryClient = useQueryClient();
 
-  const { setFormVariant, newsVariant, setNewsVariant } = useNewsStore();
+  const handleInvalidate = () => {
+    queryClient.invalidateQueries(["fetchNewsData"] as any);
+  };
+  const { setFormVariant, newsVariant, setNewsVariant, formVariant } =
+    useNewsStore();
+  useEffect(() => {
+    handleInvalidate();
+  }, [formVariant]);
 
   const deleteFun = (id: string) => {
-    setDeleteAction({ openModal: true, path: `/news/${id}` });
+    setDeleteAction({
+      openModal: true,
+      path: `/news/${id}`,
+      refetch: handleInvalidate,
+    });
   };
   const editFun = (id: string) => {
     console.log(id);
-    alert("soon :)");
-    // setFormVariant({ id, role: "edit" });
-    // navigate("/news/add-news");
+    setFormVariant({ id, role: "edit" });
+    navigate("/news/add-news");
   };
 
   const onChangePage = (data: number) => {
     setCount(data);
     setLocaleStorage("currentPage", data);
   };
+
   useEffect(() => {
     if (news) {
       setCount(news?.current_page ?? 1);
     }
   }, [news]);
+
   const tableData = news?.data.map((item) => {
     return {
       image: item.main_image?.path,
@@ -145,7 +152,7 @@ export const News = () => {
     table: (
       <div className="bg-muted px-6 py-8 rounded-[10px]">
         <div className="flex justify-between items-center mb-8">
-          <span className="flex gap-2 items-center text-xl font-bold">
+          <span className="flex gap-2 items-center text-xl font-bold ">
             <p>Yangiliklar</p>
             <Newspaper />
           </span>
@@ -162,7 +169,11 @@ export const News = () => {
           </div>
         ) : (
           <>
-            <CustomTable columns={columns} data={tableData ?? []} isPhoto={true}/>
+            <CustomTable
+              columns={columns}
+              data={tableData ?? []}
+              isPhoto={true}
+            />
             <div className="flex justify-end">
               <Pagination
                 totalPages={news?.total_pages ?? 0}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { RichTextEditor, Link } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
 import Highlight from "@tiptap/extension-highlight";
@@ -8,9 +9,10 @@ import Superscript from "@tiptap/extension-superscript";
 import SubScript from "@tiptap/extension-subscript";
 
 interface Props {
-  value: any;
-  onChange: (data: any) => void;
+  value: string;
+  onChange: (data: string) => void;
 }
+
 export function RichTextEditorComponent({ onChange, value }: Props) {
   const editor = useEditor({
     extensions: [
@@ -22,35 +24,32 @@ export function RichTextEditorComponent({ onChange, value }: Props) {
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-
-    content: value,
+    content: value || "", // Bo'sh bo'lsa, default qilib qo'yamiz
     editable: true,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
   });
 
+  // API'dan kelgan ma'lumotni yuklash
+  useEffect(() => {
+    if (editor && value) {
+      editor.commands.setContent(value);
+    }
+  }, [value, editor]);
+
   return (
     <RichTextEditor
       editor={editor}
-      className="bg-secondary px-4 shadow-md w-full rounded-[10px] !important "
-      styles={{
-        control: {
-          fontSize: "20px", // Tugma ichidagi ikonka hajmi
-          width: "20px", // Tugma eni
-          height: "20px",
-          // background: "#3a3a3a",
-          position: "relative",
-        },
-      }}
+      className="bg-secondary px-4 shadow-md w-full rounded-[10px]"
     >
       <RichTextEditor.Toolbar
-        className="mb-5  p-2 flex  text-white gap-2"
+        className="mb-5 p-2 flex text-white gap-2"
         sticky
         stickyOffset={40}
       >
-        <RichTextEditor.ControlsGroup className="flex gap-3 ">
-          <RichTextEditor.Bold className="rte-button" />
+        <RichTextEditor.ControlsGroup className="flex gap-3">
+          <RichTextEditor.Bold />
           <RichTextEditor.Italic />
           <RichTextEditor.Underline />
           <RichTextEditor.Strikethrough />
@@ -93,7 +92,7 @@ export function RichTextEditorComponent({ onChange, value }: Props) {
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
 
-      <RichTextEditor.Content className=" max-w-full min-h-36" />
+      <RichTextEditor.Content className="max-w-full min-h-36" />
     </RichTextEditor>
   );
 }

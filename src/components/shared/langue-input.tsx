@@ -81,6 +81,7 @@ export const LangueInput = ({ form, activeLang, label, name, type }: Props) => {
               <label className="text-sm text-[#E9E9E9]">{label}</label>
               <FormControl>
                 <RichTextEditorComponent
+              
                   value={field.value}
                   onChange={field.onChange}
                 />

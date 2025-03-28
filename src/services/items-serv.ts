@@ -40,9 +40,14 @@ export const patchItemsServ = async <TRequest, TResponse>(
   updateObj: TRequest,
   headers: Record<string, string> = { "Content-Type": "application/json" }
 ): Promise<TResponse> => {
+  const token = getLocaleStorage("token");
+  const authHeaders = token
+    ? { ...headers, Authorization: `Bearer ${token}` }
+    : headers;
+
   const res = await fetch(url, {
     method: "PATCH",
-    headers,
+    headers: authHeaders,
     body: JSON.stringify(updateObj),
   });
 
