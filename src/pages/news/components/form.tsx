@@ -12,12 +12,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { NewsFormSchema } from "@/lib/validation";
 import { SelectData } from "@/types";
-import { NewsForm, NewsFormRes } from "@/types/news.type";
+import { NewsForm, NewsFormRes, NewsOneRes } from "@/types/news.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import PlusIcon from "@/assets/icons/plus.svg";
+import { useQuery } from "@tanstack/react-query";
+import { useNewsStore } from "@/store/news-store";
+import { fetchItemsServ } from "@/services/items-serv";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const langBtn = [
   { id: 1, value: "uz", label: "Uzbek" },
@@ -29,18 +34,21 @@ interface Props {
   selectData: SelectData[] | [];
   loading: boolean;
 }
-// const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL;
 export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
+  const navigate = useNavigate();
   const [activeLang, setActiveLang] = useState("uz");
   const [image, setImage] = useState({ id: "", path: "" });
-  // const { formVariant } = useNewsStore();
+  const { formVariant } = useNewsStore();
 
-  // const { data: newsData } = useQuery<NewsOneRes>({
-  //   queryFn: () => fetchItemsServ(`${API}/news/one/${formVariant.id}`),
-  //   queryKey: ["newsOne"],
-  //   enabled: formVariant.role === "edit", // Faqat "edit" rejimida so‘rov yuboriladi
-  //   staleTime: 0,
-  // });
+  const [imgError, setImgError] = useState(false);
+
+  const { data: newsData } = useQuery<NewsOneRes>({
+    queryFn: () => fetchItemsServ(`${API}/news/admin/${formVariant.id}`),
+    queryKey: ["newsOne"],
+    enabled: formVariant.role === "edit", // Faqat "edit" rejimida so‘rov yuboriladi
+    staleTime: 0,
+  });
 
   const form = useForm({
     resolver: zodResolver(NewsFormSchema),
@@ -56,21 +64,48 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     },
   });
 
-  // const { reset } = form;
-  // useEffect(() => {
-  //   reset({
-  //     title_uz: newsData?.data.t || "",
-  //     title_ru: newsData?.data.title_ru || "",
-  //     title_en: newsData.title_en || "",
-  //     content_en: newsData.content_en || "",
-  //     content_ru: newsData.content_ru || "",
-  //     content_uz: newsData.content_uz || "",
-  //     categoryId: newsData.categoryId || "",
-  //     source: newsData.source || "",
-  //   });
-  // }, [newsData]);
+  const {
+    reset,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
+
+  useEffect(() => {
+    if (
+      errors.content_en ||
+      errors.content_uz ||
+      errors.content_ru ||
+      errors.title_en ||
+      errors.title_ru ||
+      errors.title_uz
+    ) {
+      toast.error("Malimotlar 3 ta tilga kiritilishi shart !!");
+    }
+  }, [errors]);
+  useEffect(() => {
+    if (formVariant.role == "edit") {
+      reset({
+        title_uz: newsData?.data.title_uz || "",
+        title_ru: newsData?.data.title_ru || "",
+        title_en: newsData?.data.title_en || "",
+        content_en: newsData?.data.content_en || "",
+        content_ru: newsData?.data.content_ru || "",
+        content_uz: newsData?.data.content_uz || "",
+        categoryId: newsData?.data.subcategory.id,
+        source: newsData?.data.source || "",
+      });
+      setImage({
+        id: "",
+        path: newsData?.data.main_image.path ?? "",
+      });
+    }
+  }, [newsData]);
 
   function onSubmit(data: NewsForm) {
+    if (image.id == "") {
+      return setImgError(true);
+    }
     const result: NewsFormRes = {
       title_uz: data.title_uz,
       title_en: data.content_en,
@@ -81,16 +116,28 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
       source: data.source,
       is_draft: false,
       is_main: false,
-      main_image: {
-        id: image.id,
-      },
       subcategory: {
         id: data.categoryId,
       },
     };
+    if (image.id !== "") {
+      result.main_image = { id: image.id };
+    }
     submit(result);
+    console.log(result);
   }
 
+  const clearForm = () => {
+    reset(); // Formani tozalaydi
+    setValue("categoryId", " ");
+    setValue("content_uz", " ");
+    setImage({ id: "", path: "" });
+  };
+  const cancelBtn = () => {
+    reset();
+    clearForm();
+    navigate("/news");
+  };
 
   return (
     <div className="bg-muted w-full p-8 rounded-[10px]">
@@ -106,8 +153,8 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
             return (
               <Button
                 className={`${
-                  item.value == activeLang ? "bg-[#4DA6FF]" : ""
-                } cursor-pointer bg-[#3F3F46] hover:bg-[#3F3F46] hover:opacity-90 py-2 text-sm  font-medium px-[14px]`}
+                  item.value == activeLang ? "bg-[#4DA6FF]" : "bg-[#3F3F46]"
+                } cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 py-2 text-sm  font-medium px-[14px]`}
                 key={item.id}
                 onClick={() => setActiveLang(item.value)}
               >
@@ -121,7 +168,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
 
       <Form {...form}>
         <form
-          onSubmit={(form.handleSubmit(onSubmit))}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"
         >
           <div className="flex gap-10">
@@ -140,7 +187,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
                   <label className="text-sm text-[#E9E9E9]">Kategoriya</label>
                   <FormControl>
                     <CustomSelect
-                      value={field.value}
+                      value={watch("categoryId") ?? ""}
                       onChange={field.onChange}
                       data={selectData}
                     />
@@ -168,7 +215,11 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
             )}
           />
 
-          <UploadButton setImageFun={setImage} />
+          <UploadButton
+            setImageFun={setImage}
+            defaultImage={image.path}
+            isError={imgError}
+          />
           <LangueInput
             activeLang={activeLang}
             label="Kontent"
@@ -180,6 +231,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
           <div className="flex gap-10 mt-5">
             <Button
               type="reset"
+              onClick={cancelBtn}
               className="w-[200px] h-[50px] bg-secondary hover:opacity-90 p-4 font-semibold"
             >
               Orqaga

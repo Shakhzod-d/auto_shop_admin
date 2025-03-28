@@ -13,6 +13,7 @@ export type SelectData = {
 export interface DeleteActionType {
   openModal: boolean;
   path: string;
+  refetch?: () => void;
 }
 
 export interface FileRes {
@@ -38,4 +39,15 @@ export interface FileData {
   path: string;
   size: number;
   mime_type: string;
+}
+
+export interface DashboardRes {
+  data: DashboardData;
+  status_code: number;
+  message: string;
+}
+
+export interface DashboardData {
+  total_news: number;
+  latest_comments: number;
 }

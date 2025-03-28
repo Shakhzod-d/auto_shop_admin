@@ -1,12 +1,19 @@
 import { CategoryReqTypes, NewsFormRes } from "@/types/news.type";
 import { AddNewsForm } from "./form";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { fetchItemsServ, postItemsServ } from "@/services/items-serv";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  fetchItemsServ,
+  patchItemsServ,
+  postItemsServ,
+} from "@/services/items-serv";
 import { useNavigate } from "react-router-dom";
+import { useNewsStore } from "@/store/news-store";
+import toast from "react-hot-toast";
 const API = import.meta.env.VITE_API_URL;
 export const AddNews = () => {
   const navigate = useNavigate();
   // get Category
+  const { formVariant, setFormVariant } = useNewsStore();
 
   const { data: categoryData } = useQuery<CategoryReqTypes>({
     queryFn: () => fetchItemsServ(`${API}/subcategory`),
@@ -23,6 +30,12 @@ export const AddNews = () => {
     };
   });
 
+  const queryClient = useQueryClient();
+
+  const handleInvalidate = () => {
+    queryClient.invalidateQueries(["fetchNewsData"] as any);
+  };
+
   //  create news
 
   const { mutate: createNews, isPending: loading } = useMutation({
@@ -30,8 +43,25 @@ export const AddNews = () => {
     onSuccess: (data: any) => {
       if (data.status_code < 400) {
         navigate("/news");
+        toast.success("Muvoffaqiyatli qo'shildi");
+        handleInvalidate();
       }
-      console.log(data);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  // edit news
+  const { mutate: editNews, isPending: editLoading } = useMutation({
+    mutationFn: (obj: NewsFormRes) =>
+      patchItemsServ(`${API}/news/${formVariant.id}`, obj),
+    onSuccess: (data: any) => {
+      if (data.status_code < 400) {
+        navigate("/news");
+        toast.success("Muvoffaqiyatli tahrirlandi");
+        setFormVariant({ id: "", role: "create" });
+      }
     },
     onError: (err) => {
       console.log(err);
@@ -39,7 +69,11 @@ export const AddNews = () => {
   });
 
   function onSubmit(data: NewsFormRes) {
-    createNews(data);
+    if (formVariant.role == "edit") {
+      editNews(data);
+    } else {
+      createNews(data);
+    }
   }
 
   return (
@@ -47,7 +81,7 @@ export const AddNews = () => {
       <AddNewsForm
         submit={onSubmit}
         selectData={selectCategoryData ?? []}
-        loading={loading}
+        loading={loading || editLoading}
       />
     </div>
   );

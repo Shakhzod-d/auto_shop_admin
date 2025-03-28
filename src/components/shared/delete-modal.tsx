@@ -2,6 +2,7 @@ import { useStore } from "@/store";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { getLocaleStorage } from "@/utils/locale-storage";
+import toast from "react-hot-toast";
 export const DeleteModal = () => {
   const API = import.meta.env.VITE_API_URL;
   const { deleteAction, setDeleteAction } = useStore();
@@ -14,6 +15,8 @@ export const DeleteModal = () => {
         },
       });
       setDeleteAction({ openModal: false, path: "" });
+      toast.success("Muvoffaqiyatli o'chirildi");
+      deleteAction.refetch?.();
     } catch (er) {
       console.log(er);
     }

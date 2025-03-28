@@ -62,7 +62,7 @@ export interface NewsFormRes {
   source: string;
   is_draft: boolean;
   is_main: boolean;
-  main_image: MainImage;
+  main_image?: MainImage;
   subcategory: Subcategory;
 }
 
@@ -111,44 +111,6 @@ export interface FormVariant {
   role: "create" | "edit";
 }
 
-export interface NewsOneRes {
-  data: NewsOne;
-  message: string;
-  status_code: number;
-}
-
-export interface NewsOne {
-  id: string;
-  is_active: boolean;
-  is_deleted: boolean;
-  created_at: string;
-  updated_at: string;
-  deleted_at: any;
-  slug: string;
-  source: string;
-  is_draft: boolean;
-  is_main: boolean;
-  main_image: NewsOneMainImage;
-  category: Category;
-  subcategory: NewsOneSubcategory;
-  comments: any[];
-  title: string;
-  content: string;
-}
-
-export interface NewsOneMainImage {
-  id: string;
-  is_active: boolean;
-  is_deleted: boolean;
-  created_at: string;
-  updated_at: string;
-  deleted_at: any;
-  file_name: string;
-  path?: string;
-  size: number;
-  mime_type: string;
-}
-
 export interface Category {
   id: string;
   is_active: boolean;
@@ -159,6 +121,60 @@ export interface Category {
   name: string;
 }
 
+export interface NewsOneRes {
+  status_code: number;
+  message: string;
+  data: NewsOneData;
+}
+
+export interface NewsOneData {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  title_uz: string;
+  title_en: string;
+  title_ru: string;
+  content_uz: string;
+  content_en: string;
+  content_ru: string;
+  slug: string;
+  source: string;
+  is_draft: boolean;
+  is_main: boolean;
+  main_image: newsOneMainImage;
+  category: NewsOneCategory;
+  subcategory: NewsOneSubcategory;
+  comments: any[];
+}
+
+export interface newsOneMainImage {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  file_name: string;
+  path: string;
+  size: number;
+  mime_type: string;
+}
+
+export interface NewsOneCategory {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  name_uz: string;
+  name_ru: string;
+  name_en: string;
+}
+
 export interface NewsOneSubcategory {
   id: string;
   is_active: boolean;
@@ -166,12 +182,16 @@ export interface NewsOneSubcategory {
   created_at: string;
   updated_at: string;
   deleted_at: any;
-  banner: NewsOneBanner;
-  name: string;
-  title: string;
+  name_uz: string;
+  name_ru: string;
+  name_en: string;
+  title_uz: string;
+  title_ru: string;
+  title_en: string;
+  banner: newsOneBanner;
 }
 
-export interface NewsOneBanner {
+export interface newsOneBanner {
   id: string;
   is_active: boolean;
   is_deleted: boolean;

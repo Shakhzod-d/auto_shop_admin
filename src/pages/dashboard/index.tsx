@@ -1,32 +1,33 @@
-import { Eye, FileText, UserRound } from "lucide-react";
+import { FileText } from "lucide-react";
 import { Card } from "./components/card";
 import Sms from "../../assets/icons/sms.svg";
-const data = [
-  {
-    icon: FileText,
-    title: "Jami Yangiliklar",
-    value: "125 ta",
-  },
-  {
-    icon: Eye,
-    title: "Bugungi Ko‘rishlar",
-    value: "8.200 ta",
-  },
-  {
-    icon: Sms,
-    title: "Yangi Izohlar",
-    value: "34 ta",
-  },
-  {
-    icon: UserRound,
-    title: "Faol Jurnalistlar",
-    value: "6 ta",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { fetchItemsServ } from "@/services/items-serv";
+import { DashboardRes } from "@/types";
+const API = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
+  const { data } = useQuery<DashboardRes>({
+    queryFn: () => fetchItemsServ(`${API}/statistic`),
+    queryKey: ["dashboard ap"],
+    staleTime: 0,
+  });
+
+  const arr = [
+    {
+      icon: FileText,
+      title: "Jami Yangiliklar",
+      value: `${data?.data.total_news || 0} ta`,
+    },
+
+    {
+      icon: Sms,
+      title: "Yangi Izohlar",
+      value: `${data?.data.latest_comments || 0} ta`,
+    },
+  ];
   return (
-    <div className="flex justify-between">
-      {data.map((item, i) => {
+    <div className="flex gap-10 items-center">
+      {arr.map((item, i) => {
         return <Card data={item} key={i} />;
       })}
     </div>
