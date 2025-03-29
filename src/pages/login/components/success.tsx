@@ -6,8 +6,8 @@ export const AuthSuccess = () => {
   const { setAuthType } = useAuthStore();
   const navigate = useNavigate();
   const onClickFun = () => {
-    setAuthType("form");
     navigate("/");
+    setAuthType("form");
   };
   return (
     <div className="w-[550px] h-[395px] bg-primary rounded-[12px] flex flex-col items-center justify-center relative">

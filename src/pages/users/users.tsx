@@ -54,6 +54,11 @@ const columns = [
 
 const API = import.meta.env.VITE_API_URL;
 export const Users = () => {
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("currentPage");
+    };
+  }, []);
   const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
 
   const { data: file, isPending: isLoading } = useQuery<UsersRes>({

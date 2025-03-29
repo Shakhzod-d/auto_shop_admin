@@ -9,14 +9,18 @@ export const DeleteModal = () => {
   const token = getLocaleStorage("token");
   const deleteItem = async () => {
     try {
-      axios.delete(API + deleteAction.path, {
+      const res = axios.delete(API + deleteAction.path, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setDeleteAction({ openModal: false, path: "" });
-      toast.success("Muvoffaqiyatli o'chirildi");
-      deleteAction.refetch?.();
+      if ((await res).status < 400) {
+        toast.success("Muvoffaqiyatli o'chirildi");
+        deleteAction.refetch?.();
+      } else {
+        toast.error("xatolik yuz berdi");
+      }
     } catch (er) {
       console.log(er);
     }
