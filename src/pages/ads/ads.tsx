@@ -17,7 +17,7 @@ import {
   Power,
   Trash2,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const columns = [
   {
@@ -69,15 +69,16 @@ const columns = [
 
 import { useQueryClient } from "@tanstack/react-query";
 import { AdsGetData } from "@/types/ads.type";
+import { UiSelect } from "@/components/shared/select";
 const API = import.meta.env.VITE_API_URL;
 export const Ads = () => {
   const navigate = useNavigate();
   const pathname = useLocation();
   const { setDeleteAction } = useStore();
-
+  const [adsType, setAdsType] = useState("banner");
   const { data: ads, isPending: isLoading } = useQuery<AdsGetData>({
-    queryFn: () => fetchItemsServ(`${API}/ad/admin?type=banner`),
-    queryKey: ["fetchAdsData"],
+    queryFn: () => fetchItemsServ(`${API}/ad/admin?type=${adsType}`),
+    queryKey: ["fetchAdsData", adsType],
     staleTime: 0,
   });
 
@@ -123,11 +124,20 @@ export const Ads = () => {
     };
   });
 
+  const selectData = [
+    { value: "banner", label: "Banner" },
+    { value: "grid", label: "Grid" },
+    { value: "carousel", label: "Carousel" },
+  ];
+
   const addNews = () => {
     navigate("/ads/add-ads");
     setFormVariant({ id: "", role: "create" });
   };
 
+  const onChangeSelect = (data: string) => {
+    setAdsType(data);
+  };
   useEffect(() => {
     if (pathname.pathname.endsWith("/ads/add-ads")) {
       setNewsVariant("form");
@@ -144,13 +154,19 @@ export const Ads = () => {
             <p>Reklamalar</p>
             <Newspaper />
           </span>
-          div
-          <Button
-            className="px-10 bg-[#3F3F46] text-[13px] cursor-pointer hover:bg-[#3F3F46] hover:opacity-90"
-            onClick={addNews}
-          >
-            <Plus /> Reklama Qo’shish
-          </Button>
+          <div className="flex items-center gap-4">
+            <UiSelect
+              defaultValue="banner"
+              data={selectData}
+              onChange={onChangeSelect}
+            />
+            <Button
+              className="px-10 bg-[#3F3F46] text-[13px] cursor-pointer hover:bg-[#3F3F46] hover:opacity-90"
+              onClick={addNews}
+            >
+              <Plus /> Reklama Qo’shish
+            </Button>
+          </div>
         </div>
         {isLoading ? (
           <div className="h-[70vh]  flex justify-center items-center">

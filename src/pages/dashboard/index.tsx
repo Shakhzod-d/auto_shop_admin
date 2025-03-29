@@ -8,7 +8,7 @@ const API = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
   const { data } = useQuery<DashboardRes>({
     queryFn: () => fetchItemsServ(`${API}/statistic`),
-    queryKey: ["dashboard ap"],
+    queryKey: ["dashboard"],
     staleTime: 0,
   });
 
@@ -16,13 +16,13 @@ export const Dashboard = () => {
     {
       icon: FileText,
       title: "Jami Yangiliklar",
-      value: `${data?.data.total_news || 0} ta`,
+      value: `${data?.data?.total_news || 0} ta`,
     },
 
     {
       icon: Sms,
       title: "Yangi Izohlar",
-      value: `${data?.data.latest_comments || 0} ta`,
+      value: `${data?.data?.latest_comments || 0} ta`,
     },
   ];
   return (

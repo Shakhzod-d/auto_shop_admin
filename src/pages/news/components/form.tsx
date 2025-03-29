@@ -103,12 +103,12 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
   }, [newsData]);
 
   function onSubmit(data: NewsForm) {
-    if (image.id == "") {
+    if (image.id == "" && formVariant.role !== "edit") {
       return setImgError(true);
     }
     const result: NewsFormRes = {
       title_uz: data.title_uz,
-      title_en: data.content_en,
+      title_en: data.title_en,
       title_ru: data.title_ru,
       content_uz: data.content_uz,
       content_en: data.content_en,
@@ -124,7 +124,6 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
       result.main_image = { id: image.id };
     }
     submit(result);
-    console.log(result);
   }
 
   const clearForm = () => {

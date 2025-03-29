@@ -1,43 +1,49 @@
 import CustomTable from "@/components/shared/custom-table";
-import { Pagination } from "@/components/shared/Pagination";
+// import { Pagination } from "@/components/shared/Pagination";
 import { fetchItemsServ } from "@/services/items-serv";
 import { useStore } from "@/store";
 
-import { FileRes } from "@/types";
-import { getLocaleStorage, setLocaleStorage } from "@/utils/locale-storage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  CircleCheck,
-  Image,
   LoaderCircleIcon,
+  LucideFileSignature,
+  MailIcon,
+  MailsIcon,
   Power,
   Trash2,
+  User,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { CommentRes } from "@/types/comment.type";
 const columns = [
   {
-    key: "image",
+    key: "user",
     title: (
       <>
-        Rasm
-        <Image />
+        User
+        <User />
       </>
     ),
   },
   {
-    key: "",
-    title: "",
+    key: "news",
+    title: (
+      <>
+        Yangilik
+        <LucideFileSignature />
+      </>
+    ),
+  },
+  {
+    key: "comment",
+    title: (
+      <>
+        Izoh
+        <MailIcon />
+      </>
+    ),
   },
 
-  {
-    key: "status",
-    title: (
-      <>
-        Status
-        <CircleCheck />
-      </>
-    ),
-  },
   {
     key: "",
     title: "",
@@ -54,58 +60,52 @@ const columns = [
 ];
 
 const API = import.meta.env.VITE_API_URL;
-export const Photo = () => {
-  const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
+export const Comment = () => {
+  // const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
   const { deleteAction, setDeleteAction } = useStore();
-
-  useEffect(() => {
-    return () => {
-      console.log("Component unmounted, clearing localStorage...");
-      localStorage.removeItem("currentPage"); // Faqat "tableData" ni o‘chirish
-    };
-  }, []);
 
   const {
     data: file,
     isPending: isLoading,
     refetch,
-  } = useQuery<FileRes>({
-    queryFn: () => fetchItemsServ(`${API}/file?page=${count}&page_size=10`),
-    queryKey: ["fetchPhoto", count],
+  } = useQuery<CommentRes>({
+    queryFn: () => fetchItemsServ(`${API}/comment?page=${1}&page_size=10`),
+    queryKey: ["fetchComment"],
     staleTime: 0,
   });
+
+  const queryClient = useQueryClient();
+
+  const handleInvalidate = () => {
+    queryClient.invalidateQueries(["fetchComment"] as any);
+  };
 
   useEffect(() => {
     refetch();
   }, [deleteAction]);
 
-  const queryClient = useQueryClient();
-
-  const handleInvalidate = () => {
-    queryClient.invalidateQueries(["fetchPhoto"] as any);
-  };
-
   const deleteFun = (id: string) => {
     setDeleteAction({
       openModal: true,
-      path: `/file/${id}`,
+      path: `/comment/${id}`,
       refetch: handleInvalidate,
     });
   };
 
-  const onChangePage = (data: number) => {
-    setCount(data);
-    setLocaleStorage("currentPage", data);
-  };
-  useEffect(() => {
-    if (file) {
-      setCount(file?.current_page ?? 1);
-    }
-  }, [file]);
+  // const onChangePage = (data: number) => {
+  //   setCount(data);
+  //   setLocaleStorage("currentPage", data);
+  // };
+  // useEffect(() => {
+  //   if (file) {
+  //     setCount(file?.current_page ?? 1);
+  //   }
+  // }, [file]);
   const tableData = file?.data.map((item) => {
     return {
-      image: item.path,
-      status: item.is_active ? "Aktiv" : "Aktiv emas",
+      user: item.user?.email,
+      news: item?.news?.title_uz,
+      comment: item?.text,
       actions: (
         <span className="flex items-center gap-2 cursor-pointer">
           {" "}
@@ -119,8 +119,8 @@ export const Photo = () => {
     <div className="bg-muted px-6 py-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-8">
         <span className="flex gap-2 items-center text-xl font-bold">
-          <p>Rasmlar</p>
-          <Image />
+          <p>Izohlar va Sharhlar</p>
+          <MailsIcon />
         </span>
       </div>
       {isLoading ? (
@@ -132,14 +132,14 @@ export const Photo = () => {
           <CustomTable
             columns={columns}
             data={tableData ?? []}
-            isPhoto={true}
+            isPhoto={false}
           />
           <div className="flex justify-end">
-            <Pagination
+            {/* <Pagination
               totalPages={file?.total_pages ?? 0}
               onPageChange={(page: number) => onChangePage(page)}
               activePage={file?.current_page ?? Number(count)}
-            />
+            /> */}
           </div>
         </>
       )}

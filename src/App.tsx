@@ -5,6 +5,7 @@ import { Layout } from "./layout";
 import { routes } from "./utils/routes";
 import { Login } from "./pages/login";
 import { PrivateRoute } from "./private-route";
+import { NotFound } from "./pages/not-found/not-found";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           // }
         })}
         <Route path={"/login"} element={<Login />} />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
     </>
   );

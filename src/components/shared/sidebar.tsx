@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/store/auth-store";
 import { sidebarData } from "@/utils/constants";
 import { getLocaleStorage, removeLocaleStorage } from "@/utils/locale-storage";
-import { LogOut, User2Icon } from "lucide-react";
+import { LogOut, } from "lucide-react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -70,12 +70,8 @@ export const Sidebar = () => {
         </div>
         {isProfile && (
           <div>
-            <div className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all rounded-md hover:text-white">
-              <User2Icon size={18} />
-              <p className="text-[15px] font-medium">Profile</p>
-            </div>
             <div
-              className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all rounded-md hover:text-white"
+              className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all  hover:text-white"
               onClick={logoutFun}
             >
               <LogOut size={18} />

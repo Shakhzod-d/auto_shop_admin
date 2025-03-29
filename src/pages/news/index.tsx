@@ -73,6 +73,12 @@ const columns = [
 import { useQueryClient } from "@tanstack/react-query";
 const API = import.meta.env.VITE_API_URL;
 export const News = () => {
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("currentPage");
+    };
+  }, []);
+
   const navigate = useNavigate();
   const pathname = useLocation();
   const [count, setCount] = useState(getLocaleStorage("currentPage") ?? 1);
@@ -103,7 +109,6 @@ export const News = () => {
     });
   };
   const editFun = (id: string) => {
-    console.log(id);
     setFormVariant({ id, role: "edit" });
     navigate("/news/add-news");
   };
