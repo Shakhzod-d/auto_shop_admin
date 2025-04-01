@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as a parent image
-FROM node:18-alpine as build
+# Build stage
+FROM node:18-alpine AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -16,17 +16,23 @@ COPY . .
 # Build the application for production
 RUN npm run build
 
-# Use nginx to serve the static files
+# Production stage
 FROM nginx:alpine
 
-# Copy the build output to replace the default nginx contents
+# Copy built assets from the build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy custom nginx config if needed
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Add nginx configuration for SPAs
+RUN echo 'server { \
+  listen 5173; \
+  location / { \
+    root /usr/share/nginx/html; \
+    try_files $uri $uri/ /index.html; \
+  } \
+}' > /etc/nginx/conf.d/default.conf
 
-# Expose port 80
-EXPOSE 80
+# Expose port 5173
+EXPOSE 5173
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
