@@ -26,7 +26,7 @@ export default defineConfig({
     strictPort: true,
     hmr: {
       clientPort: 443, // Agar HTTPS bo‘lsa
-      protocol: "wss",
+      protocol: "https",
     },
   },
 });
