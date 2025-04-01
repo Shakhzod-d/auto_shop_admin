@@ -21,12 +21,17 @@ export default defineConfig({
   //   allowedHosts: ["localhost", "admin.autoshop.uz"],
   // },
   server: {
-    host: true, // Docker ichidan tashqariga chiqish uchun
-    port: 5173,
-    strictPort: true,
-    hmr: {
-      clientPort: 443, // Agar HTTPS bo‘lsa
-      protocol: "https",
+    host: "0.0.0.0", // Tashqi kirishlarni qabul qilish
+    port: 5173, // Vite server porti
+    strictPort: true, // Agar port band bo‘lsa, boshqa portga o‘tmaslik
+    watch: {
+      usePolling: true, // Docker ichida fayl o‘zgarishlarini kuzatish uchun
     },
-  },
+    hmr: {
+      clientPort: 443, // HTTPS orqali ishlayotgan bo‘lsa
+      path: "/ws", // WebSocket’ni boshqa path’ga o‘tkazish mumkin
+    },
+    allowedHosts: ["admin.autoshop.uz"],
+  }
+  
 });
