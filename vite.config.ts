@@ -17,10 +17,16 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // server: {
+  //   allowedHosts: ["localhost", "admin.autoshop.uz"],
+  // },
   server: {
+    host: true, // Docker ichidan tashqariga chiqish uchun
+    port: 5173,
+    strictPort: true,
     hmr: {
-      clientPort: 443, 
-      host: "admin.autoshop.uz", 
+      clientPort: 443, // Agar HTTPS bo‘lsa
+      protocol: "wss",
     },
   },
 });
