@@ -32,6 +32,5 @@ export default defineConfig({
       path: "/ws", // WebSocket’ni boshqa path’ga o‘tkazish mumkin
     },
     allowedHosts: ["admin.autoshop.uz"],
-  }
-  
+  },
 });
