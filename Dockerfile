@@ -1,38 +1,19 @@
-# Build stage
-FROM node:18-alpine AS build
+# This is the newer version
 
-# Set the working directory in the container
+FROM node:18-alpine
+
 WORKDIR /app
 
-# Copy package.json and package-lock.json before other files
-COPY package*.json ./
+COPY package.json .
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application files
+RUN npm i -g serve
+
 COPY . .
 
-# Build the application for production
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+EXPOSE 3000
 
-# Copy built assets from the build stage
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Add nginx configuration for SPAs
-RUN echo 'server { \
-  listen 5173; \
-  location / { \
-    root /usr/share/nginx/html; \
-    try_files $uri $uri/ /index.html; \
-  } \
-}' > /etc/nginx/conf.d/default.conf
-
-# Expose port 5173
-EXPOSE 5173
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "serve", "-s", "dist" ]
