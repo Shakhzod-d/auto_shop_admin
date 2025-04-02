@@ -22,7 +22,6 @@ export default defineConfig({
   // },
   server: {
     host: "0.0.0.0", // Tashqi kirishlarni qabul qilish
-    port: 5173, // Vite server porti
     strictPort: true, // Agar port band bo‘lsa, boshqa portga o‘tmaslik
     watch: {
       usePolling: true, // Docker ichida fayl o‘zgarishlarini kuzatish uchun
