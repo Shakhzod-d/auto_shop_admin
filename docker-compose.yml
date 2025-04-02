@@ -1,16 +1,14 @@
-version: '3.3'
+version: '3'
 
 services:
-  frontend:
+  react-app:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        VITE_API_URL: ${VITE_API_URL}
-        VITE_IMG_URL: ${VITE_IMG_URL}
-    container_name: vite-react-app
-    restart: unless-stopped
     ports:
-      - "5173:5173"
-    env_file:
-      - .env
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - VITE_API_URL=https://api.autoshop.samarkandcargo.com/api
+      - VITE_IMG_URL=https://autoshop.fra1.cdn.digitaloceanspaces.com/
+    restart: unless-stopped
