@@ -18,6 +18,7 @@ export const Login = () => {
     mutationFn: (obj: AuthData) => postItemsServ(`${API}/admin/login`, obj),
     onSuccess: (data: any) => {
       console.log(data);
+
       const token: any = data?.data?.access_token;
       if (data.status_code >= 400) {
         setAuthType("error");
@@ -29,6 +30,7 @@ export const Login = () => {
     },
     onError: (err) => {
       console.log({ err });
+      setAuthType("error")
     },
   });
 
