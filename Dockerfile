@@ -31,8 +31,8 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy built files from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 8080 instead of 80 (since 80 is in use)
-EXPOSE 8080
+# Expose port 8081 instead of 80 (since 80 is in use)
+EXPOSE 8081
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
