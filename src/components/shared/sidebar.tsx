@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/store/auth-store";
 import { sidebarData } from "@/utils/constants";
 import { getLocaleStorage, removeLocaleStorage } from "@/utils/locale-storage";
-import { LogOut, } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -25,8 +25,9 @@ export const Sidebar = () => {
 
       removeLocaleStorage("token");
       navigate("/login");
+      localStorage.clear();
     } catch (err: any) {
-      console.error("Logout error:", err);
+      // console.error("Logout error:", err);
       throw new Error(err);
     } finally {
       setAuthLoader(false);
