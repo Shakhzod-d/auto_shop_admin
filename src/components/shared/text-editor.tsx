@@ -41,10 +41,10 @@ export function RichTextEditorComponent({ onChange, value }: Props) {
   return (
     <RichTextEditor
       editor={editor}
-      className="bg-secondary px-4 shadow-md w-full rounded-[10px]"
+      className="bg-secondary px-4 w-full rounded-[10px]"
     >
       <RichTextEditor.Toolbar
-        className="mb-5 p-2 flex text-white gap-2"
+        className="mb-5 p-2 flex text-[var(--form-text)] gap-2"
         sticky
         stickyOffset={40}
       >
@@ -92,7 +92,7 @@ export function RichTextEditorComponent({ onChange, value }: Props) {
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
 
-      <RichTextEditor.Content className="max-w-full min-h-36" />
+      <RichTextEditor.Content className="max-w-full min-h-36 text-[var(--form-text)]" />
     </RichTextEditor>
   );
 }

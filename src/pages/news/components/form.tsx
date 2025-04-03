@@ -142,7 +142,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
         <span className="flex items-center gap-2">
-          <p className="text-xl text-[#E9E9E9] font-bold">
+          <p className="text-xl text-[var(--form-text)] font-bold">
             {"Yangilik Qo’shish"}
           </p>
           <PlusIcon />
@@ -152,8 +152,8 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
             return (
               <Button
                 className={`${
-                  item.value == activeLang ? "bg-[#4DA6FF]" : "bg-[#3F3F46]"
-                } cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 py-2 text-sm  font-medium px-[14px]`}
+                  item.value == activeLang ? "bg-[#4DA6FF]" : "bg-[var(--btn)]"
+                } cursor-pointer hover:bg-[var(--btn)] hover:opacity-70 py-2 text-sm  font-medium px-[14px] text-[var(--form-text)]`}
                 key={item.id}
                 onClick={() => setActiveLang(item.value)}
               >
@@ -170,7 +170,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full flex flex-col gap-6"
         >
-          <div className="flex gap-10">
+          <div className="flex gap-10 items-start">
             <LangueInput
               activeLang={activeLang}
               label="Sarlavha"
@@ -183,7 +183,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
               name="categoryId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <label className="text-sm text-[#E9E9E9]">Kategoriya</label>
+                  <label className="text-sm text-[var(--form-text)]">Kategoriya</label>
                   <FormControl>
                     <CustomSelect
                       value={watch("categoryId") ?? ""}
@@ -200,13 +200,13 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
             control={form.control}
             name="source"
             render={({ field }) => (
-              <FormItem className="w-full max-w-[49%]">
-                <label className="text-sm text-[#E9E9E9]">Manba</label>
+              <FormItem className="w-full max-w-[49%] ">
+                <label className="text-sm text-[var(--form-text)]">Manba</label>
                 <FormControl>
                   <Input
                     {...field}
                     type="text"
-                    className="bg-secondary w-full placeholder:text-amber-50 h-[50px]  border border-border outline-none"
+                    className="bg-secondary w-full placeholder:text-amber-50 h-[50px]   outline-none border-none"
                   />
                 </FormControl>
                 <FormMessage />
@@ -229,19 +229,19 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
 
           <div className="flex gap-10 mt-5">
             <Button
-              type="reset"
-              onClick={cancelBtn}
-              className="w-[200px] h-[50px] bg-secondary hover:opacity-90 p-4 font-semibold"
-            >
-              Orqaga
-            </Button>
-            <Button
               type="submit"
               disabled={loading}
-              className="w-[200px] h-[50px] bg-[#4DA6FF] hover:opacity-90 p-4 font-semibold flex items-center gap-4"
+              className="w-[200px] h-[50px] bg-[#4DA6FF] hover:opacity-90 p-4 font-semibold flex items-center gap-4 text-white hover:bg-blue-400 cursor-pointer"
             >
               {loading && <Loader2Icon className="animate-spin" />}
               Qo'shish
+            </Button>
+            <Button
+              type="reset"
+              onClick={cancelBtn}
+              className="w-[200px] h-[50px] bg-red-500 hover:opacity-90 p-4 font-semibold text-white hover:bg-red-400 cursor-pointer"
+            >
+              Orqaga
             </Button>
           </div>
         </form>

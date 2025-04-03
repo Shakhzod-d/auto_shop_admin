@@ -4,6 +4,7 @@ import { Header } from "./components/shared/navbar";
 import { DeleteModal } from "./components/shared/delete-modal";
 import { useStore } from "./store";
 import { Toaster } from "react-hot-toast";
+
 interface Props {
   children: JSX.Element;
 }

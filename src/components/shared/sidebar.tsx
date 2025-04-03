@@ -71,7 +71,7 @@ export const Sidebar = () => {
         {isProfile && (
           <div>
             <div
-              className="flex gap-2 items-center border-t py-4 cursor-pointer  transition-all  hover:text-white"
+              className="flex gap-2 items-center border-t cursor-pointer  transition-all hover:opacity-70"
               onClick={logoutFun}
             >
               <LogOut size={18} />
