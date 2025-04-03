@@ -27,13 +27,13 @@ export const LangueInput = forwardRef<HTMLInputElement, Props>(
                     activeLang === lang ? "grid" : "hidden"
                   }`}
                 >
-                  <label className="text-sm text-[#E9E9E9]">{label}</label>
+                  <label className="text-sm text-[var(--form-text)]">{label}</label>
                   <FormControl>
                     <Input
                       {...field}
                       ref={ref} // Ref qo‘shildi
                       type="text"
-                      className="bg-secondary w-full placeholder:text-amber-50 h-[52px] border border-border outline-none"
+                      className="bg-secondary w-full placeholder:text-amber-50 h-[52px] outline-none text-[var(--form-text)] border-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -56,7 +56,7 @@ export const LangueInput = forwardRef<HTMLInputElement, Props>(
                     activeLang === lang ? "grid" : "hidden"
                   }`}
                 >
-                  <label className="text-sm text-[#E9E9E9]">{label}</label>
+                  <label className="text-sm text-[var(--form-text)]">{label}</label>
                   <FormControl>
                     <RichTextEditorComponent
                       value={field.value}

@@ -10,7 +10,7 @@ export const NotFound = () => {
         <p className="text-3xl mb-2">Sahifa topilmadi</p>
 
         <Button
-          className="bg-blue-600 p-4 cursor-pointer"
+          className="bg-blue-600 p-4 cursor-pointer hover:bg-blue-400"
           onClick={() => navigate("/")}
         >
           Bosh sahifa

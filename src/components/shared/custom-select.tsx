@@ -28,12 +28,12 @@ export function CustomSelect({ value, onChange, data }: Props) {
       defaultValue={selectedValue}
     >
       <SelectTrigger
-        className="w-full border border-border  rounded-md  bg-secondary py-[25px] "
+        className="w-full border border-border  rounded-md  bg-secondary py-[25px] text-[var(--form-text)]"
         style={{ height: "40px !important" }}
       >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-secondary text-white w-full">
+      <SelectContent className="bg-secondary text-[var(--form-text)] w-full">
         <SelectGroup>
           {data.map((item) => (
             <SelectItem value={item.value} key={item.value}>

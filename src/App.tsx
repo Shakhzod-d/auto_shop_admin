@@ -6,10 +6,11 @@ import { routes } from "./utils/routes";
 import { Login } from "./pages/login";
 import { PrivateRoute } from "./private-route";
 import { NotFound } from "./pages/not-found/not-found";
+import { ThemeProvider } from "./theme-provider";
 
 function App() {
   return (
-    <>
+    <ThemeProvider defaultTheme="light">
       <Routes>
         {routes.map((item) => {
           const Component = item.component;
@@ -45,7 +46,7 @@ function App() {
         <Route path={"/login"} element={<Login />} />
         <Route path={"*"} element={<NotFound />} />
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

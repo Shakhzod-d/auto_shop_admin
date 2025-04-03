@@ -4,6 +4,8 @@ import Sms from "../../assets/icons/sms.svg";
 import { useQuery } from "@tanstack/react-query";
 import { fetchItemsServ } from "@/services/items-serv";
 import { DashboardRes } from "@/types";
+import { useEffect } from "react";
+import { useAuthStore } from "@/store/auth-store";
 const API = import.meta.env.VITE_API_URL;
 export const Dashboard = () => {
   const { data } = useQuery<DashboardRes>({
@@ -12,6 +14,7 @@ export const Dashboard = () => {
     staleTime: 0,
   });
 
+  const { setAuthType } = useAuthStore();
   const arr = [
     {
       icon: FileText,
@@ -25,6 +28,9 @@ export const Dashboard = () => {
       value: `${data?.data?.latest_comments || 0} ta`,
     },
   ];
+  useEffect(() => {
+    setAuthType("form");
+  }, []);
   return (
     <div className="flex gap-10 items-center">
       {arr.map((item, i) => {

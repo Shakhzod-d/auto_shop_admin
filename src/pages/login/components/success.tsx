@@ -1,13 +1,13 @@
 import SuccessIcon from "@/assets/icons/success.svg";
 import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/store/auth-store";
+
 import { useNavigate } from "react-router-dom";
 export const AuthSuccess = () => {
-  const { setAuthType } = useAuthStore();
+
   const navigate = useNavigate();
   const onClickFun = () => {
     navigate("/");
-    setAuthType("form");
+   
   };
   return (
     <div className="w-[550px] h-[395px] bg-primary rounded-[12px] flex flex-col items-center justify-center relative">

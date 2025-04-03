@@ -42,15 +42,15 @@ export function Pagination({
         <Button
           key={idx}
           variant={currentPage === page ? "default" : "outline"}
-          className={cn("w-10 h-10 mx-1", {
-            "bg-secondary text-white": currentPage === page,
+          className={cn("w-10 h-10 mx-1 cursor-pointer", {
+            "bg-blue-500 text-white cursor-pointer hover:bg-blue-400": currentPage === page,
           })}
           onClick={() => handlePageChange(page)}
         >
           {page}
         </Button>
       ) : (
-        <span key={idx} className="px-2 text-gray-400">
+        <span key={idx} className="px-2 text-gray-400  cursor-pointer">
           {page}
         </span>
       )
@@ -58,7 +58,7 @@ export function Pagination({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-4">
+    <div className="flex items-center justify-center gap-2 mt-4 cursor-pointer">
       <Button
         variant="outline"
         disabled={currentPage === 1}

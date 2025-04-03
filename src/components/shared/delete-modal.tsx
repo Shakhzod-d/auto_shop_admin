@@ -33,13 +33,13 @@ export const DeleteModal = () => {
         </p>
         <div className="flex items-center gap-4 justify-end">
           <Button
-            className="cursor-pointer"
+            className="cursor-pointer text-[var(--form-text)]"
             onClick={() => setDeleteAction({ openModal: false, path: "" })}
           >
             yo'q
           </Button>
           <Button
-            className="bg-red-500 cursor-pointer hover:bg-red-400"
+            className="bg-red-500 cursor-pointer hover:bg-red-400 text-white"
             onClick={deleteItem}
           >
             ha
