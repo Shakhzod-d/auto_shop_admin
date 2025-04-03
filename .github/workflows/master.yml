@@ -1,0 +1,67 @@
+name: CI and Deploy to Server
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js (local runner)
+      uses: actions/setup-node@v3
+      with:
+        node-version: 'v20.12.2'
+
+    # Production branch uchun deploy (masalan, main branch)
+    - name: Deploy to production server (for main branch)
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/ssh-action@v0.1.2
+      with:
+        host: ${{ secrets.PROD_SERVER_IP }}
+        username: root
+        password: ${{ secrets.PROD_SERVER_PASSWORD }}
+        script: |
+          # Docker o'rnatilganligini tekshirish
+          if ! [ -x "$(command -v docker)" ]; then
+            echo "Docker is not installed. Installing..."
+            curl -fsSL https://get.docker.com | sh
+          fi
+          
+          # Proyekt direktoriyasini yaratish va ichiga kirish
+          if [ -d "/projects/autoshop-admin/.git" ]; then
+              cd /projects/autoshop-admin
+              git remote set-url origin https://ibrohimabrolov:${{ secrets.TOKEN_GITHUB }}@github.com/ibrohimabrolov/${{ secrets.REPO_NAME }}.git
+              git pull origin main
+          else
+              rm -rf /projects/autoshop-admin
+              mkdir -p /projects/autoshop-admin
+              cd /projects/autoshop-admin
+              git clone --branch main https://ibrohimabrolov:${{ secrets.TOKEN_GITHUB }}@github.com/ibrohimabrolov/${{ secrets.REPO_NAME }}.git .
+          fi
+
+          # Verify docker-compose.yml exists after pulling/cloning
+          if [ ! -f "docker-compose.yml" ]; then
+            echo "Error: docker-compose.yml file not found after cloning!"
+            exit 1
+          fi
+
+          
+          # .env faylini yaratish
+          echo "${{ secrets.PROD_ENV_CONTENT }}" > .env
+
+          # Docker compose faylini tekshirish
+          if [ ! -f "docker-compose.yml" ]; then
+            echo "Error: docker-compose.yml file not found!"
+            exit 1
+          fi
+
+          # Docker konteynerini qayta ishga tushirish
+          docker-compose down
+          docker-compose up --build -d
