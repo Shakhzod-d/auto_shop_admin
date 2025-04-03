@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL;
 export const Login = () => {
-  const { authType, setAuthType, setUserData } = useAuthStore();
+  const { authType, setAuthType } = useAuthStore();
   const navigate = useNavigate();
 
   const { mutate: loginFun, isPending: loading } = useMutation({
@@ -19,19 +19,13 @@ export const Login = () => {
     onSuccess: (data: any) => {
       console.log(data);
       const token: any = data?.data?.access_token;
-      setLocaleStorage("token", token);
-      setLocaleStorage("userId", data.data.id);
-      navigate("/");
-      // if (data.status_code >= 400) {
-      //   setAuthType("error");
-      // } else {
-      //   setUserData({
-      //     fullname: data?.data?.fullname,
-      //     role: data?.data?.role,
-      //     id: data?.data?.id,
-      //   });
-      //   setAuthType("success");
-      // }
+      if (data.status_code >= 400) {
+        setAuthType("error");
+      } else {
+        setLocaleStorage("token", token);
+        setLocaleStorage("userId", data.data.id);
+        navigate("/");
+      }
     },
     onError: (err) => {
       console.log({ err });
