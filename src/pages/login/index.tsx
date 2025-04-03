@@ -8,11 +8,11 @@ import { postItemsServ } from "@/services/items-serv";
 import { useAuthStore } from "@/store/auth-store";
 import { setLocaleStorage } from "@/utils/locale-storage";
 
-// const API = import.meta.env.VITE_API_URL;
+const API = import.meta.env.VITE_API_URL;
 export const Login = () => {
   const { authType, setAuthType, setUserData } = useAuthStore();
   const { mutate: loginFun, isPending: loading } = useMutation({
-    mutationFn: (obj: AuthData) => postItemsServ(`https://api.autoshop.samarkandcargo.com/api/admin/login`, obj),
+    mutationFn: (obj: AuthData) => postItemsServ(`${API}/admin/login`, obj),
     onSuccess: (data: any) => {
       if (data.status_code >= 400) {
         setAuthType("error");

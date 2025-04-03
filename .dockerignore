@@ -4,8 +4,6 @@ dist
 .github
 *.md
 .gitignore
-.env
-.env.*
 .vscode
 .idea
 *.log
