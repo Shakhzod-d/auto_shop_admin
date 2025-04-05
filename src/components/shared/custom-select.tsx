@@ -29,7 +29,7 @@ export function CustomSelect({ value, onChange, data }: Props) {
     >
       <SelectTrigger
         className="w-full border border-border  rounded-md  bg-secondary py-[25px] text-[var(--form-text)]"
-        style={{ height: "40px !important" }}
+        style={{ height: "10px !important" }}
       >
         <SelectValue />
       </SelectTrigger>

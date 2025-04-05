@@ -19,28 +19,28 @@ const columns = [
   {
     key: "user",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         User
         <User />
-      </>
+      </div>
     ),
   },
   {
     key: "news",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Yangilik
         <LucideFileSignature />
-      </>
+      </div>
     ),
   },
   {
     key: "comment",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Izoh
         <MailIcon />
-      </>
+      </div>
     ),
   },
 
@@ -51,10 +51,10 @@ const columns = [
   {
     key: "actions",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Buttonlar
         <Power />
-      </>
+      </div>
     ),
   },
 ];

@@ -11,7 +11,8 @@ interface TableProps {
   isPhoto?: boolean;
 }
 const IMG_URL = import.meta.env.VITE_IMG_URL;
-const activeClass = "p-2 bg-[#10B9811A] rounded-md text-[#10B981]";
+const activeClass =
+  "p-2 bg-[#10B9811A] rounded-[40px] text-[#10B981] text-[14px]";
 const errorClass = "p-1 bg-red-500 rounded-md text-text-red-200 text-white";
 const CustomTable: React.FC<TableProps> = ({ columns, data, isPhoto }) => {
   return (
@@ -19,11 +20,11 @@ const CustomTable: React.FC<TableProps> = ({ columns, data, isPhoto }) => {
       {data.length > 0 ? (
         <>
           <div className="bg-background text-text rounded-lg overflow-hidden mb-[28px]">
-            <div className="grid grid-cols-5 gap-4 p-4 text-sm font-semibold">
+            <div className="grid grid-cols-5 gap-4 p-4 text-[18px] font-bold">
               {columns.map((col) => (
                 <div
                   key={col.key}
-                  className="flex justify-center items-center gap-1 text-center"
+                  className="flex justify-center items-center gap-1"
                 >
                   {col.title}
                 </div>
@@ -35,7 +36,9 @@ const CustomTable: React.FC<TableProps> = ({ columns, data, isPhoto }) => {
             {data.map((row, rowIndex) => (
               <div
                 key={rowIndex}
-                style={{ background: rowIndex % 2 == 0 ? "var(--table-line)" : "" }}
+                style={{
+                  background: rowIndex % 2 == 0 ? "var(--table-line)" : "",
+                }}
                 className="grid grid-cols-5 gap-4 items-center  text-text p-4 rounded-lg h-[110px] mb-[25px]"
               >
                 {columns.map((col, i) => (

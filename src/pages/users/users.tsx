@@ -17,10 +17,10 @@ const columns = [
   {
     key: "email",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Email
         <MailIcon />
-      </>
+      </div>
     ),
   },
   {
@@ -30,10 +30,10 @@ const columns = [
   {
     key: "role",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Rol
         <User />
-      </>
+      </div>
     ),
   },
 
@@ -44,10 +44,10 @@ const columns = [
   {
     key: "status",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Status
         <CircleCheck />
-      </>
+      </div>
     ),
   },
 ];

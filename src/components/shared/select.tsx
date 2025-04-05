@@ -21,7 +21,7 @@ export const UiSelect = ({ defaultValue, onChange, data }: Props) => {
       >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-secondary text-white w-full">
+      <SelectContent className="bg-secondary text-[var(--form-text)] w-full">
         <SelectGroup>
           {data.map((item) => (
             <SelectItem value={item.value} key={item.value}>

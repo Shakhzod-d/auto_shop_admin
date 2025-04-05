@@ -33,7 +33,7 @@ export const LangueInput = forwardRef<HTMLInputElement, Props>(
                       {...field}
                       ref={ref} // Ref qo‘shildi
                       type="text"
-                      className="bg-secondary w-full placeholder:text-amber-50 h-[52px] outline-none text-[var(--form-text)] border-none"
+                      className="bg-secondary w-full placeholder:text-amber-50 h-[51px] outline-none text-[var(--form-text)] border-none"
                     />
                   </FormControl>
                   <FormMessage />

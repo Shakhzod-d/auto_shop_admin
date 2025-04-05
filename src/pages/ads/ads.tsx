@@ -23,46 +23,46 @@ const columns = [
   {
     key: "image",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Rasm
         <Image />
-      </>
+      </div>
     ),
   },
   {
     key: "source",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Url
         <FolderKanban />
-      </>
+      </div>
     ),
   },
   {
     key: "category",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Kategoriya
         <ChartColumnStacked />
-      </>
+      </div>
     ),
   },
   {
     key: "status",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Status
         <CircleCheck />
-      </>
+      </div>
     ),
   },
   {
     key: "actions",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Buttonlar
         <Power />
-      </>
+      </div>
     ),
   },
 ];
@@ -161,7 +161,7 @@ export const Ads = () => {
               onChange={onChangeSelect}
             />
             <Button
-              className="px-10 bg-[#3F3F46] text-[13px] cursor-pointer hover:bg-[#3F3F46] hover:opacity-90"
+              className="px-10 bg-[#3F3F46] text-[13px]  text-white cursor-pointer hover:bg-[#3F3F46] hover:opacity-90"
               onClick={addNews}
             >
               <Plus /> Reklama Qo’shish

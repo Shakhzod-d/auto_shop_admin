@@ -59,7 +59,7 @@ export const Sidebar = () => {
         }`}
       >
         <div
-          className="flex items-center gap-1   cursor-pointer"
+          className="flex items-center gap-2   cursor-pointer"
           onClick={() => setIsProfile((c) => !c)}
         >
           <span className="w-2 h-2 rounded-full bg-[#4DA6FF] absolute right-0 top-0"></span>

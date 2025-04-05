@@ -15,7 +15,9 @@
   --form-text: #000;
   --table-line: #f4f4f5;
   --btn: #f4f4f5;
+  
   --card: oklch(1 0 0);
+  --table-title: #27272a;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -53,6 +55,7 @@
   --btn: #3f3f46;
   --table-line: #101012;
   --form-text: #e9e9e9;
+  --table-title: #fff;
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);

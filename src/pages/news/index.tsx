@@ -26,46 +26,46 @@ const columns = [
   {
     key: "image",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Rasm
-        <Image />
-      </>
+        <Image size={20} />
+      </div>
     ),
   },
   {
     key: "source",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Manba
-        <FolderKanban />
-      </>
+        <FolderKanban size={20} />
+      </div>
     ),
   },
   {
     key: "category",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Kategoriya
-        <ChartColumnStacked />
-      </>
+        <ChartColumnStacked size={20} />
+      </div>
     ),
   },
   {
     key: "status",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Status
-        <CircleCheck />
-      </>
+        <CircleCheck size={20} />
+      </div>
     ),
   },
   {
     key: "actions",
     title: (
-      <>
+      <div className="flex items-center gap-2">
         Buttonlar
-        <Power />
-      </>
+        <Power size={20} />
+      </div>
     ),
   },
 ];
@@ -131,10 +131,10 @@ export const News = () => {
       category: item.subcategory?.name,
       status: "Aktiv",
       actions: (
-        <span className="flex items-center gap-2 cursor-pointer">
+        <span className="flex items-center gap-4 cursor-pointer">
           {" "}
-          <Trash2 onClick={() => deleteFun(item.id)} />
-          <Pen onClick={() => editFun(item.id)} />
+          <Trash2 onClick={() => deleteFun(item.id)} size={20} />
+          <Pen onClick={() => editFun(item.id)} size={20} />
         </span>
       ),
     };

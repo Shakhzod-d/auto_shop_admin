@@ -152,8 +152,8 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
             return (
               <Button
                 className={`${
-                  item.value == activeLang ? "bg-[#4DA6FF]" : "bg-[var(--btn)]"
-                } cursor-pointer hover:bg-[var(--btn)] hover:opacity-70 py-2 text-sm  font-medium px-[14px] text-[var(--form-text)]`}
+                  item.value == activeLang ? "bg-[#4DA6FF] text-white" : "bg-[var(--btn)] text-[var(--form-text)]"
+                } cursor-pointer hover:bg-[var(--btn)] hover:opacity-70 py-2 text-sm  font-medium px-[14px] `}
                 key={item.id}
                 onClick={() => setActiveLang(item.value)}
               >
