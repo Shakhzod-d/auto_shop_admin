@@ -1,7 +1,6 @@
 import {
   FileText,
   LucideLayoutDashboard,
-  Folders,
   UsersRound,
   Mails,
   ScanEye,
