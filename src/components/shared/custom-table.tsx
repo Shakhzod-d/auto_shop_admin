@@ -19,12 +19,12 @@ const CustomTable: React.FC<TableProps> = ({ columns, data, isPhoto }) => {
     <div className="w-full">
       {data.length > 0 ? (
         <>
-          <div className="bg-background text-text rounded-lg overflow-hidden mb-[28px]">
-            <div className="grid grid-cols-5 gap-4 p-4 text-[18px] font-bold">
+          <div className="bg-[var(--table-col)] text-text rounded-lg overflow-hidden mb-[28px]">
+            <div className="grid grid-cols-5 gap-4 p-4 text-[14px] font-bold">
               {columns.map((col) => (
                 <div
                   key={col.key}
-                  className="flex justify-center items-center gap-1"
+                  className="flex justify-center items-center gap-1 text-[var(--text)]"
                 >
                   {col.title}
                 </div>

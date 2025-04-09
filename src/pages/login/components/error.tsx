@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/auth-store";
 export const AuthError = () => {
   const { setAuthType } = useAuthStore();
   return (
-    <div className="w-[550px] h-[395px] bg-primary rounded-[12px] flex flex-col items-center justify-center relative">
+    <div className="w-[550px] h-[395px] bg-card rounded-[12px] flex flex-col items-center justify-center relative">
       <div className="absolute top-[-55px]">
         <ErrorIcon />
       </div>
