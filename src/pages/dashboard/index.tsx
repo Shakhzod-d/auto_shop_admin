@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react";
+import { FileText, User2 } from "lucide-react";
 import { Card } from "./components/card";
 import Sms from "../../assets/icons/sms.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -25,6 +25,11 @@ export const Dashboard = () => {
     {
       icon: Sms,
       title: "Yangi Izohlar",
+      value: `${data?.data?.latest_comments || 0} ta`,
+    },
+    {
+      icon: User2,
+      title: "Faol foydalanuvchilar",
       value: `${data?.data?.latest_comments || 0} ta`,
     },
   ];

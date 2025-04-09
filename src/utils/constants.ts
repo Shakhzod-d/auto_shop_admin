@@ -28,3 +28,35 @@ export const sidebarData = [
   },
   { id: 8, label: "Web-sayt Sozlamalari", icon: Globe, path: "/file" },
 ];
+
+const Data = new Date();
+const weekDay = [
+  "Dushanba",
+  "Seshanba",
+  "Chorshanba",
+  "Payshanba",
+  "Juma",
+  "Shanba",
+  "Yakshanba",
+];
+const months = [
+  "Yanvar",
+  "Fevral",
+  "Mart",
+  "Aprel",
+  "May",
+  "Iyun",
+  "Iyul",
+  "Avgust",
+  "Sentabr",
+  "Oktyabr",
+  "Noyabr",
+  "Dekabr",
+];
+export const calendarFun = () => {
+  const day = Data.getDate();
+  const year = Data.getFullYear();
+  return `${weekDay[Data.getDay() - 1]}, ${
+    months[Data.getMonth() - 1]
+  } ${day}, ${year}`;
+};

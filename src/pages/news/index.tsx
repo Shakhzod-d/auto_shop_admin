@@ -157,12 +157,12 @@ export const News = () => {
     table: (
       <div className="bg-muted px-6 py-8 rounded-[10px]">
         <div className="flex justify-between items-center mb-8">
-          <span className="flex gap-2 items-center text-xl font-bold ">
+          <span className="flex gap-2 items-center text-xl font-bold text-[var(--table-title)]">
             <p>Yangiliklar</p>
             <Newspaper />
           </span>
           <Button
-            className="px-10 bg-secondary text-[13px] text-text cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 hover:text-white"
+            className="px-10 bg-[var(--btn)] text-[13px]  text-white cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 hover:text-white"
             onClick={addNews}
           >
             <Plus /> Yangilik Qo’shish

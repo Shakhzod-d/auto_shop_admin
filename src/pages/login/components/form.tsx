@@ -50,11 +50,13 @@ export const AuthForm = ({ submit, loading }: Props) => {
     submit(data);
   }
   return (
-    <div className="w-[550px] h-[464px] bg-primary rounded-[5px] p-8">
+    <div className="w-[550px] h-[464px] bg-card rounded-[5px] p-8">
       <div className="flex justify-between items-center">
-        <h2 className="text-[27px] text-[#4DA6FF] font-bold mb-6">
-          // AutoShop
-        </h2>
+        <img
+          src="/logo.png"
+          alt="logo autoshop.uz"
+          className="h-[60px] w-[60px] mb-8"
+        />
         {theme == "light" ? (
           <MoonIcon
             className="cursor-pointer"
