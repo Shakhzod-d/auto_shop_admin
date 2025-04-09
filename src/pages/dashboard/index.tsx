@@ -13,6 +13,7 @@ export const Dashboard = () => {
     queryKey: ["dashboard"],
     staleTime: 0,
   });
+  console.log(data);
 
   const { setAuthType } = useAuthStore();
   const arr = [
@@ -30,7 +31,7 @@ export const Dashboard = () => {
     {
       icon: User2,
       title: "Faol foydalanuvchilar",
-      value: `${data?.data?.latest_comments || 0} ta`,
+      value: `${data?.data?.total_users || 0} ta`,
     },
   ];
   useEffect(() => {

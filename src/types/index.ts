@@ -50,4 +50,5 @@ export interface DashboardRes {
 export interface DashboardData {
   total_news: number;
   latest_comments: number;
+  total_users: number;
 }
