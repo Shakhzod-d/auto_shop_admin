@@ -150,7 +150,7 @@ export const Ads = () => {
     table: (
       <div className="bg-muted px-6 py-8 rounded-[10px]">
         <div className="flex justify-between items-center mb-8">
-          <span className="flex gap-2 items-center text-xl font-bold ">
+          <span className="flex gap-2 items-center text-xl font-bold  text-[var(--text)] font-poly">
             <p>Reklamalar</p>
             <Newspaper />
           </span>

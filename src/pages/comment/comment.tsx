@@ -34,7 +34,7 @@ const columns = [
       </div>
     ),
   },
-  
+
   {
     key: "comment",
     title: (
@@ -93,15 +93,6 @@ export const Comment = () => {
     });
   };
 
-  // const onChangePage = (data: number) => {
-  //   setCount(data);
-  //   setLocaleStorage("currentPage", data);
-  // };
-  // useEffect(() => {
-  //   if (file) {
-  //     setCount(file?.current_page ?? 1);
-  //   }
-  // }, [file]);
   const tableData = file?.data.map((item) => {
     return {
       user: item.user?.email,
@@ -119,7 +110,7 @@ export const Comment = () => {
   return (
     <div className="bg-muted px-6 py-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-8">
-        <span className="flex gap-2 items-center text-xl font-bold">
+        <span className="flex gap-2 items-center text-xl font-bold font-poly text-[var(--text)]">
           <p>Izohlar va Sharhlar</p>
           <MailsIcon />
         </span>
@@ -135,13 +126,7 @@ export const Comment = () => {
             data={tableData ?? []}
             isPhoto={false}
           />
-          <div className="flex justify-end">
-            {/* <Pagination
-              totalPages={file?.total_pages ?? 0}
-              onPageChange={(page: number) => onChangePage(page)}
-              activePage={file?.current_page ?? Number(count)}
-            /> */}
-          </div>
+          <div className="flex justify-end"></div>
         </>
       )}
     </div>
