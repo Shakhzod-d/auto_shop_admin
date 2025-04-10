@@ -142,7 +142,7 @@ export const AddNewsForm = ({ submit, selectData, loading }: Props) => {
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
         <span className="flex items-center gap-2">
-          <p className="text-xl text-[var(--form-text)] font-bold">
+          <p className="text-xl text-[var(--form-text)] font-bold font-poly">
             {"Yangilik Qo’shish"}
           </p>
           <PlusIcon />

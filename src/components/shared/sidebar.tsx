@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
-    <aside className="w-[310px] border-r h-screen bg-primary p-4 flex flex-col">
+    <aside className="w-[320px] border-r h-screen bg-primary p-4 flex flex-col">
       <img src="/logo.png" alt="logo" className="h-[70px] w-[70px] mb-14" />
       <div className="flex-1">
         {sidebarData.map((item) => {

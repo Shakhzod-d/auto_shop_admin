@@ -133,7 +133,7 @@ export const AddAdsForm = ({ submit, loading }: Props) => {
     <div className="bg-muted w-full p-8 rounded-[10px]">
       <div className="flex justify-between items-center mb-10">
         <span className="flex items-center gap-2">
-          <p className="text-xl text-[#E9E9E9] font-bold">
+          <p className="text-xl font-bold font-poly text-[var(--text)]">
             {"Reklama Qo’shish"}
           </p>
           <PlusIcon />
@@ -144,7 +144,7 @@ export const AddAdsForm = ({ submit, loading }: Props) => {
               <Button
                 className={`${
                   item.value == activeLang ? "bg-[#4DA6FF]" : "bg-[#3F3F46]"
-                } cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 py-2 text-sm  font-medium px-[14px]`}
+                } cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 py-2 text-sm  font-medium px-[14px] text-white`}
                 key={item.id}
                 onClick={() => setActiveLang(item.value)}
               >
@@ -197,7 +197,7 @@ export const AddAdsForm = ({ submit, loading }: Props) => {
                   <Input
                     {...field}
                     type="text"
-                    className="bg-secondary w-full placeholder:text-amber-50 h-[50px]  border border-border outline-none"
+                    className="bg-secondary w-full placeholder:text-amber-50 h-[50px]   outline-none "
                   />
                 </FormControl>
                 <FormMessage />
@@ -213,19 +213,19 @@ export const AddAdsForm = ({ submit, loading }: Props) => {
 
           <div className="flex gap-10 mt-5">
             <Button
-              type="reset"
-              onClick={cancelBtn}
-              className="w-[200px] h-[50px] bg-secondary hover:opacity-90 p-4 font-semibold"
-            >
-              Orqaga
-            </Button>
-            <Button
               type="submit"
               disabled={loading}
-              className="w-[200px] h-[50px] bg-[#4DA6FF] hover:opacity-90 p-4 font-semibold flex items-center gap-4"
+              className="w-[200px] h-[50px] bg-[#4DA6FF] hover:bg-blue-500 p-4 font-semibold flex items-center gap-4 text-white cursor-pointer"
             >
               {loading && <Loader2Icon className="animate-spin" />}
               Qo'shish
+            </Button>
+            <Button
+              type="reset"
+              onClick={cancelBtn}
+              className="w-[120px] h-[50px]  hover:opacity-90 p-4 font-semibold bg-red-500 text-white cursor-pointer hover:bg-red-400"
+            >
+              Orqaga
             </Button>
           </div>
         </form>
