@@ -21,7 +21,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         User
-        <User />
+        <User size={20}/>
       </div>
     ),
   },
@@ -30,7 +30,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Yangilik
-        <LucideFileSignature />
+        <LucideFileSignature size={20}/>
       </div>
     ),
   },
@@ -40,7 +40,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Izoh
-        <MailIcon />
+        <MailIcon size={20}/>
       </div>
     ),
   },
@@ -54,7 +54,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Buttonlar
-        <Power />
+        <Power size={20}/>
       </div>
     ),
   },

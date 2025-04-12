@@ -25,7 +25,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Rasm
-        <Image />
+        <Image size={20} />
       </div>
     ),
   },
@@ -34,7 +34,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Url
-        <FolderKanban />
+        <FolderKanban size={20} />
       </div>
     ),
   },
@@ -43,7 +43,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Kategoriya
-        <ChartColumnStacked />
+        <ChartColumnStacked size={20} />
       </div>
     ),
   },
@@ -52,7 +52,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Status
-        <CircleCheck />
+        <CircleCheck size={20} />
       </div>
     ),
   },
@@ -61,7 +61,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Buttonlar
-        <Power />
+        <Power size={20} />
       </div>
     ),
   },

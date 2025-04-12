@@ -19,7 +19,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Email
-        <MailIcon />
+        <MailIcon size={20}/>
       </div>
     ),
   },
@@ -32,7 +32,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Rol
-        <User />
+        <User size={20}/>
       </div>
     ),
   },
@@ -46,7 +46,7 @@ const columns = [
     title: (
       <div className="flex items-center gap-2">
         Status
-        <CircleCheck />
+        <CircleCheck size={20}/>
       </div>
     ),
   },

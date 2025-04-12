@@ -162,7 +162,7 @@ export const News = () => {
             <Newspaper />
           </span>
           <Button
-            className="px-10 bg-[var(--btn)] text-[13px]  text-whitec cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 hover:text-white"
+            className="px-10 bg-[#3f3f46] text-[13px]  text-white cursor-pointer hover:bg-[#3F3F46] hover:opacity-90 hover:text-white"
             onClick={addNews}
           >
             <Plus /> Yangilik Qo’shish
