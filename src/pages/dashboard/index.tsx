@@ -1,4 +1,4 @@
-import { FileText, User2 } from "lucide-react";
+import { Eye, FileText, User2 } from "lucide-react";
 import { Card } from "./components/card";
 import Sms from "../../assets/icons/sms.svg";
 import { useQuery } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ export const Dashboard = () => {
     queryKey: ["dashboard"],
     staleTime: 0,
   });
-  console.log(data);
+
 
   const { setAuthType } = useAuthStore();
   const arr = [
@@ -32,6 +32,11 @@ export const Dashboard = () => {
       icon: User2,
       title: "Faol foydalanuvchilar",
       value: `${data?.data?.total_users || 0} ta`,
+    },
+    {
+      icon: Eye,
+      title: "Ko'rishlar soni",
+      value: `${data?.data?.total_views || 0} ta`,
     },
   ];
   useEffect(() => {
