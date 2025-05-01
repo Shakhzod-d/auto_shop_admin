@@ -9,10 +9,12 @@ export function UploadButton({
   setImageFun,
   defaultImage,
   isError,
+  title,
 }: {
   setImageFun: (data: { id: string; path: string }) => void;
   defaultImage: string;
   isError: boolean;
+  title?: string;
 }) {
   const [image, setImage] = useState<string | null>(defaultImage);
   const [loading, setLoading] = useState<boolean>(false);
@@ -61,7 +63,9 @@ export function UploadButton({
   return (
     <div>
       <div className="w-full rounded-[8px] border border-border bg-secondary h-[180px] py-3 px-4">
-        <p className="font-medium text-[var(--form-text)] mb-3">Rasm Yuklash</p>
+        <p className="font-medium text-[var(--form-text)] mb-3">
+          {title ? title : "Rasm Yuklash"}
+        </p>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         <label
           htmlFor="file-upload"

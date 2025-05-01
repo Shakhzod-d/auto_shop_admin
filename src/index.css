@@ -187,3 +187,42 @@
   z-index: 100 !important;
   transform: none !important;
 }
+
+.custom-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+  position: relative;
+}
+
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 10px;
+  margin: 10px 0;
+  color: #555;
+}
+
+.youtube-embed {
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+  display: block;
+  margin: 10px 0;
+}
+
+.ProseMirror {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+::selection {
+  background-color: #4b9ce2;
+  color: #ffffff;
+}
+
+input::selection,
+textarea::selection {
+  background-color: #4b9ce2;
+  color: #ffffff;
+}

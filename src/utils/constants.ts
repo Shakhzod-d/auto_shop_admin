@@ -5,6 +5,8 @@ import {
   Mails,
   ScanEye,
   SquareTerminal,
+  ChartBarStacked,
+  ChartColumnBig,
 } from "lucide-react";
 
 import Globe from "../assets/icons/globe.svg";
@@ -12,6 +14,13 @@ import Globe from "../assets/icons/globe.svg";
 export const sidebarData = [
   { id: 1, label: "Boshqaruv Paneli", icon: LucideLayoutDashboard, path: "/" },
   { id: 2, label: "Yangiliklar Boshqaruvi", icon: FileText, path: "/news" },
+  { id: 3, label: "Kategoriya", icon: ChartBarStacked, path: "/category" },
+  {
+    id: 3,
+    label: "Sub Kategoriya",
+    icon: ChartColumnBig,
+    path: "/subcategory",
+  },
   {
     id: 4,
     label: "Foydalanuvchilar Boshqaruvi",
@@ -56,7 +65,9 @@ const months = [
 export const calendarFun = () => {
   const day = Data.getDate();
   const year = Data.getFullYear();
-  return `${weekDay[Data.getDay() - 1]}, ${
+  console.log(Data.getDay());
+
+  return `${weekDay[Data.getDay() == 0 ? 6 : Data.getDay() - 1]}, ${
     months[Data.getMonth() - 1]
   } ${day}, ${year}`;
 };
