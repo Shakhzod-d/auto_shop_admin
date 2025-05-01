@@ -53,3 +53,31 @@ export interface DashboardData {
   total_users: number;
   total_views: number;
 }
+
+export interface CategoryRes {
+  status_code: number;
+  data: Category[];
+  message: string;
+}
+
+export interface Category {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  subcategories: Subcategory[];
+  name: string;
+}
+
+export interface Subcategory {
+  id: string;
+  is_active: boolean;
+  is_deleted: boolean;
+  created_at: string;
+  updated_at: string;
+  deleted_at: any;
+  name: string;
+  title: string;
+}
